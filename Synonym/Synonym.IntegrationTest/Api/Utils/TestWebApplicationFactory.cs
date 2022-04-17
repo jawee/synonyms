@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Synonym.Core.Models;
 using Synonym.Infra.Context;
 
-namespace Synonym.Test.Api.Utils;
+namespace Synonym.IntegrationTest.Api.Utils;
 
 public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
@@ -36,36 +35,27 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
             db.Database.EnsureDeleted();
             db.Database.Migrate();
 
-            try
+            var a = new Word {Value = "a"};
+            var b = new Word {Value = "b"};
+            var c = new Word {Value = "c"};
+            var d = new Word {Value = "d"};
+            db.Add(a);
+            db.Add(b);
+            db.Add(c);
+            db.Add(d);
+            var syn1 = new Synonym.Core.Models.Synonym
             {
-                var a = new Word {Value = "a"};
-                var b = new Word {Value = "b"};
-                var c = new Word {Value = "c"};
-                var d = new Word {Value = "d"};
-                db.Add(a);
-                db.Add(b);
-                db.Add(c);
-                db.Add(d);
-                var syn1 = new Synonym.Core.Models.Synonym
-                {
-                    Word1 = a,
-                    Word2 = b
-                };
-                var syn2 = new Synonym.Core.Models.Synonym
-                {
-                    Word1 = b,
-                    Word2 = a
-                };
-                db.Add(syn1);
-                db.Add(syn2);
-                db.SaveChanges();
-            }
-            catch (Exception ex)
+                Word1 = a,
+                Word2 = b
+            };
+            var syn2 = new Synonym.Core.Models.Synonym
             {
-                throw;
-                // logger.LogError(ex, "An error occurred seeding the " +
-                // "database with test messages. Error: {exceptionMessage}", ex.Message);
-            }
+                Word1 = b,
+                Word2 = a
+            };
+            db.Add(syn1);
+            db.Add(syn2);
+            db.SaveChanges();
         }
 
         return host;

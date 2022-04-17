@@ -7,9 +7,9 @@ using NUnit.Framework;
 using Synonym.Api;
 using Synonym.Api.Requests;
 using Synonym.Api.Responses;
-using Synonym.Test.Api.Utils;
+using Synonym.IntegrationTest.Api.Utils;
 
-namespace Synonym.Test.Api;
+namespace Synonym.IntegrationTest.Api;
 
 [TestFixture]
 public class SynonymControllerTest

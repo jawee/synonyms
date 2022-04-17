@@ -21,20 +21,6 @@ public class RepositoryBase<T> : IRepository<T> where T : class
         return entity;
     }
 
-    public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
-    {
-        DbContext.Set<T>().Update(entity);
-
-        await SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
-    {
-        DbContext.Set<T>().Remove(entity);
-
-        await SaveChangesAsync(cancellationToken);
-    }
-
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return await DbContext.SaveChangesAsync(cancellationToken);
@@ -44,10 +30,4 @@ public class RepositoryBase<T> : IRepository<T> where T : class
     {
         return await DbContext.Set<T>().FindAsync(new object[] { id }, cancellationToken: cancellationToken);
     }
-    
-    public async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
-    {
-        return await DbContext.Set<T>().ToListAsync(cancellationToken);
-    }
-    
 }
