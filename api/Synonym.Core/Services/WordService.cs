@@ -17,14 +17,17 @@ public class WordService : IWordService
 
     public async Task<Word?> GetWordByString(string word)
     {
+        _logger.LogInformation("WordService.GetWordByString called with input '{word}'", word);
         word = word.ToLower();
         var w = await _repository.GetWordByString(word);
 
+        _logger.LogInformation("WordService.GetWordByString returning '{w}'", w);
         return w;
     }
 
     public async Task<Word> CreateWord(string word)
     {
+        _logger.LogInformation("WordService.CreateWord called with input '{word}'", word);
         word = word.ToLower();
         
         var exists = await _repository.GetWordByString(word);
@@ -39,6 +42,7 @@ public class WordService : IWordService
 
         await _repository.AddAsync(w);
 
+        _logger.LogInformation("WordService.CreateWord returning '{w}'", w);
         return w;
     }
 }

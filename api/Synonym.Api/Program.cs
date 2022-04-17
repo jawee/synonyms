@@ -12,11 +12,10 @@ var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .CreateLogger();
+
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
-// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,29 +25,26 @@ builder.Services.AddScoped<IWordRepository, WordRepository>();
 builder.Services.AddScoped<ISynonymRepository, SynonymRepository>();
 
 builder.Services.AddDbContext<SynonymDbContext>(options =>
-    options.UseSqlite("Data Source=SynonymDb.sqlite"));
-
-
-// builder.Services.AddScoped<SynonymDbContext>(provider => provider.GetRequiredService<SynonymDbContext>());
+    options.UseSqlite("DataSource=file::memory:?cache=shared"));
 
 var app = builder.Build();
-// app.UseSerilogRequestLogging(); // <-- Add this line
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SynonymDbContext>();
+    db.Database.EnsureDeleted();
     db.Database.Migrate();
 }
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// app.UseAuthorization();
 
 app.MapControllers();
 

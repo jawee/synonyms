@@ -22,7 +22,12 @@ public class SynonymService : ISynonymService
         _logger.LogInformation("SynonymService.CreateSynonym called with input '{firstWord}' '{secondWord'}", firstWord, secondWord);
         firstWord = firstWord.ToLower();
         secondWord = secondWord.ToLower();
-        
+
+        if (firstWord.Equals(secondWord))
+        {
+            _logger.LogInformation("SynonymService.CreateSynonym the words are the same. Returning.");
+            return;
+        }
         var first = await _wordService.CreateWord(firstWord);
         
         var firstSynonyms = await _repository.GetSynonymsForWord(first);

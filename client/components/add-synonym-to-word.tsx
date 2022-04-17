@@ -1,11 +1,12 @@
 import router from "next/router";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface IProp {
     word: string
 }
 
 const AddSynonymToWord: FC<IProp> = ({ word }) => {
+    const [error, setError] = useState("");
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -14,6 +15,11 @@ const AddSynonymToWord: FC<IProp> = ({ word }) => {
         };
 
         const newSynonym = target.synonym.value;
+
+        if (word === newSynonym) {
+            setError("Synonym can't be the same as the word");
+            return;
+        }
 
         const body = {
             firstWord: word,
@@ -29,7 +35,6 @@ const AddSynonymToWord: FC<IProp> = ({ word }) => {
             body: JSON.stringify(body),
             cache: 'default'
         }).then(() => {
-            debugger;
             router.reload();
         });
 
@@ -41,6 +46,7 @@ const AddSynonymToWord: FC<IProp> = ({ word }) => {
                 <input required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="synonym" type="text" placeholder="New synonym" />
                 <input className="border rounded py-2 px-3 mb-3 leading-tight hover:text-[#84A9BC]" type="submit" value="Add Synonym" />
             </form>
+            <span className="text-[#e63946]">{error}</span>
         </div>
     )
 }
