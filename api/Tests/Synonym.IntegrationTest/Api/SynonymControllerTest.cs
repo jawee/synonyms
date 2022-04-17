@@ -14,18 +14,11 @@ namespace Synonym.IntegrationTest.Api;
 [TestFixture]
 public class SynonymControllerTest
 {
-    private HttpClient _client;
-
-    [SetUp]
-    public void Setup()
-    {
-        var application = new TestWebApplicationFactory<WebMarker>();
-        _client = application.CreateClient();
-    }
-    
     [Test]
     public async Task GET_Ok()
     {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var _client = application.CreateClient();
         var response = await _client.GetAsync("/Synonym/a");
         var synonymResponse = JsonConvert.DeserializeObject<GetSynonymsForWordResponse>( await response.Content.ReadAsStringAsync());
         
@@ -37,6 +30,8 @@ public class SynonymControllerTest
     [Test]
     public async Task GET_WordDoesNotExist_EmptyResponse()
     {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var _client = application.CreateClient();
         var response = await _client.GetAsync("/Synonym/f");
         var synonymResponse = JsonConvert.DeserializeObject<GetSynonymsForWordResponse>( await response.Content.ReadAsStringAsync());
         
@@ -47,6 +42,8 @@ public class SynonymControllerTest
     [Test]
     public async Task POST_WordsDoesNotExist_Ok()
     {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var _client = application.CreateClient();
         var request = new CreateSynonymRequest("q","w");
         var content = new StringContent(JsonConvert.SerializeObject(request));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -58,6 +55,8 @@ public class SynonymControllerTest
     [Test]
     public async Task POST_WordDoesExist_Ok()
     {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var _client = application.CreateClient();
         var request = new CreateSynonymRequest("a", "q");
         var content = new StringContent(JsonConvert.SerializeObject(request));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

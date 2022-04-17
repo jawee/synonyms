@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -11,30 +12,24 @@ namespace Synonym.IntegrationTest.Api.Utils;
 
 public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
-    /// <summary>
-    /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
-    /// https://github.com/dotnet-architecture/eShopOnWeb/issues/465
-    /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
     protected override IHost CreateHost(IHostBuilder builder)
     {
         var host = builder.Build();
         host.Start();
-
-        // Get service provider.
+        
         var serviceProvider = host.Services;
 
-        // Create a scope to obtain a reference to the database
-        // context (AppDbContext).
         using (var scope = serviceProvider.CreateScope())
         {
             var scopedServices = scope.ServiceProvider;
             var db = scopedServices.GetRequiredService<SynonymDbContext>();
-
+            
             db.Database.EnsureDeleted();
             db.Database.Migrate();
-
+            
+            db.Words.RemoveRange(db.Words);
+            db.Synonyms.RemoveRange(db.Synonyms);
+            
             var a = new Word {Value = "a"};
             var b = new Word {Value = "b"};
             var c = new Word {Value = "c"};
@@ -66,7 +61,6 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
         builder
             .ConfigureServices(services =>
             {
-                // Remove the app's ApplicationDbContext registration.
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
                          typeof(SynonymDbContext));
@@ -76,9 +70,10 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
                     services.Remove(descriptor);
                 }
 
-
-                // services.AddDbContext<SynonymDbContext>(options => { options.UseSqlite("DataSource=:memory:"); });
-                services.AddDbContext<SynonymDbContext>(options => { options.UseSqlite("Data Source=:memory:;Version=3;New=True;"); });
+                services.AddDbContext<SynonymDbContext>(options =>
+                {
+                    options.UseSqlite("DataSource=file::memory:");
+                });
             });
         
     }

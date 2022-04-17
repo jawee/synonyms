@@ -37,7 +37,7 @@ public class WordServiceTest
         var res = await service.GetWordByString("a");
 
         Assert.That(res != null, $"Res is null, expected not null");
-        Assert.That(res.Value.Equals("a"), $"Expected res to be 'a', got {res.Value}");
+        Assert.That(res is {Value: "a"}, $"Expected res to be 'a', got {res?.Value}");
     }
     
     [Test]
@@ -51,7 +51,7 @@ public class WordServiceTest
         var res = await service.CreateWord("a");
 
         Assert.That(res != null, $"Res is null, expected not null");
-        Assert.That(res.Value.Equals("a"), $"Expected res to be 'a', got {res.Value}");
+        Assert.That(res is {Value: "a"}, $"Expected res to be 'a', got {res?.Value}");
         Assert.That(ctx.Words.Count() == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.Words.Count()}");
     }
     [Test]
@@ -66,7 +66,7 @@ public class WordServiceTest
         var res = await service.CreateWord("a");
 
         Assert.That(res != null, $"Res is null, expected not null");
-        Assert.That(res.Value.Equals("a"), $"Expected res to be 'a', got {res.Value}");
+        Assert.That(res is {Value: "a"}, $"Expected res to be 'a', got {res?.Value}");
         Assert.That(ctx.Words.Count() == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.Words.Count()}");
     }
 }

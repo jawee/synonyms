@@ -91,10 +91,28 @@ public class SynonymServiceTest
         Assert.That(res.Count == 1, $"Expected to get 1 synonyms for 'b', got {res.Count}");
         Assert.That(res.Contains("a"), "Expected to get 'a' as a synonym for 'b'");
     }
-
-    //n, i.e. if "B" is a synonym to "A" and "C" a synonym to "B", then "C" should automatically, by transitive rule, also be the synonym for "A"
+    
     [Test]
-    public async Task TestAddSynonymTransitive()
+    public async Task AddSynonym_AddAA__ReturnsEmpty()
+    {
+        var ctx = TestSynonymDbContext.GetTestDbContext();
+        var repository = new SynonymRepository(ctx);
+        var wordLogger = new Mock<ILogger<WordService>>().Object;
+        var wordService = new WordService(new WordRepository(ctx), wordLogger);
+        var logger = new Mock<ILogger<SynonymService>>().Object;
+        var service = new SynonymService(repository, wordService, logger);
+        
+        _ = await wordService.CreateWord("A");
+
+        await service.CreateSynonym("A", "A");
+        var res = await service.GetSynonymsForWord("A");
+
+        Assert.That(res.Count == 0, $"Expected to get 0 synonyms for 'a', got {res.Count}");
+    }
+
+
+    [Test]
+    public async Task AddSynonym_AddAB_BC_ReturnsBC()
     {
         var ctx = TestSynonymDbContext.GetTestDbContext();
         var repository = new SynonymRepository(ctx);
