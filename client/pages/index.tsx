@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     return (
         <>
             <form className="w-full" onSubmit={handleSubmit}>
-                <input required className="bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="word" type="text" placeholder="Search synonyms for..." />
+                <input title="Only a single word" pattern="[a-zA-ZÅÄÖåäö]" required className="bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="word" type="text" placeholder="Search synonyms for..." />
                 <input type="submit" className="hidden" value="Search" />
             </form>
         </>
