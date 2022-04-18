@@ -37,8 +37,8 @@ const CreateSynonym: NextPage = () => {
     return (
         <div className="container">
             <form className="w-full" onSubmit={onSubmit}>
-                <input pattern="[a-zA-ZÅÄÖåäö]" required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="firstWord" type="text" placeholder="Word" />
-                <input pattern="[a-zA-ZÅÄÖåäö]" required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline "name="secondWord" type="text" placeholder="Synonym" />
+                <input title="Should only be a single word" pattern="[a-zA-ZÅÄÖåäö]" required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="firstWord" type="text" placeholder="Word" />
+                <input title="Should only be a single word" pattern="[a-zA-ZÅÄÖåäö]" required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline "name="secondWord" type="text" placeholder="Synonym" />
                 <input className="border rounded py-2 px-3 mb-3 leading-tight hover:text-[#84A9BC]" type="submit" value="Add Synonym" />
             </form>
             <span className="text-[#e63946]">{error}</span>
