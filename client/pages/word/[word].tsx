@@ -13,7 +13,7 @@ const Word: NextPage = () => {
   if (!data) return <div>Loading...</div>
   return (
       <div className="container">
-        <h1 className="text-2xl">Synonyms for {word}</h1>
+        <h1 className="text-2xl">Synonyms for <strong>{word}</strong></h1>
         <ul>
             {data['synonyms'].map((synonym: string) => (
                 <li key={synonym}>{synonym}</li>
