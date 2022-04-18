@@ -17,17 +17,16 @@ type CreateSynonymRequest = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log("handler called with req method: " + req.method);
+    const baseUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}`;
     if (req.method === 'GET') {
         console.log("GET");
         const word = req.query.word as string;
-
-        const resp = await axios.get<Word>(`https://localhost:7137/Synonym/` + word);
-
+        const resp = await axios.get<Word>(`${baseUrl}/Synonym/${word}`);
         res.status(200).json(resp.data);
     } else if (req.method === 'POST') {
         console.log("POST");
         const request = req.body as CreateSynonymRequest;
-        const resp = await axios.post<CreateSynonymRequest>(`https://localhost:7137/Synonym`, request);
+        const resp = await axios.post<CreateSynonymRequest>(`${baseUrl}/Synonym`, request);
         res.status(200).json(resp.status);
     }
 }

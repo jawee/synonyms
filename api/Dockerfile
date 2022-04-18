@@ -22,6 +22,7 @@ FROM build AS publish
 RUN dotnet publish "Synonym.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
+RUN mkdir /logs
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Synonym.Api.dll"]

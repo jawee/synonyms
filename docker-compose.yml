@@ -5,6 +5,9 @@ services:
   client:
     build: client/
     restart: unless-stopped
+    environment:
+      - API_HOST=api
+      - API_PORT=5000
     ports:
       - "3000:3000"
 
@@ -16,10 +19,10 @@ services:
       # - "IdentityServer__Key__Type=Development"
       # - "ASPNETCORE_Kestrel__Certificates__Default__Password=Your_password123"
       # - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
-    # volumes:
-    #   - ~/.aspnet/https:/https:ro
-    ports:
-      - "5002:5000"
-      - "5003:5001"
+    volumes:
+      - ./logs:/logs
+    # ports:
+    #   - "5002:5000"
+    #   - "5003:5001"
     restart: unless-stopped
 
