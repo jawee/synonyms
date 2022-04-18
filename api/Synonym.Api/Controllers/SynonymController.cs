@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Synonym.Api.Requests;
 using Synonym.Api.Responses;
@@ -11,6 +12,8 @@ public class SynonymController : ControllerBase
 {
     private readonly ISynonymService _service;
     private readonly ILogger<SynonymController> _logger;
+    
+    private const string RegexPattern = @"^[a-zA-ZÅÄÖåäö]*$";
 
     public SynonymController(ISynonymService service, ILogger<SynonymController> logger)
     {
@@ -24,6 +27,10 @@ public class SynonymController : ControllerBase
         _logger.LogInformation("GetSynonymsForWord called with input '{word}'", word);
         var res = await _service.GetSynonymsForWord(word);
 
+        if (!ValidateWord(word))
+        {
+            return BadRequest("Word should be a single word.");
+        }
         var response = new GetSynonymsForWordResponse(word, res);
     
         _logger.LogInformation("Returning response '{response}'", response);
@@ -34,10 +41,19 @@ public class SynonymController : ControllerBase
     public async Task<ActionResult> Post([FromBody] CreateSynonymRequest request)
     {
         _logger.LogInformation("CreateSynonym called with input '{request}'", request);
+        if (request.Validate())
+        {
+            return BadRequest("FirstWord and SecondWord should be single words.");
+        }
         
         await _service.CreateSynonym(request.FirstWord, request.SecondWord);
 
         _logger.LogInformation("CreateSynonym returning ok");
         return Ok();
+    }
+
+    private bool ValidateWord(string word)
+    {
+        return Regex.IsMatch(word, RegexPattern);
     }
 }

@@ -43,7 +43,7 @@ const AddSynonymToWord: FC<IProp> = ({ word }) => {
         <div className="mt-4">
             <h2 className="text-xl mb-3">Add a new synonym to <strong>{word}</strong></h2>
             <form className="w-full" onSubmit={onSubmit}>
-                <input required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="synonym" type="text" placeholder="New synonym" />
+                <input pattern="[a-zA-ZÅÄÖåäö]" required className="mr-3 bg-[#2F3E46] text-[#CAD2C5] shadow appearance-none border rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="synonym" type="text" placeholder="New synonym" />
                 <input className="border rounded py-2 px-3 mb-3 leading-tight hover:text-[#84A9BC]" type="submit" value="Add Synonym" />
             </form>
             <span className="text-[#e63946]">{error}</span>
