@@ -9,4 +9,4 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7c3d829_002D8002_002D4319_002Da503_002D5b44ee6386a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddSynonym_AddAB_ReturnsB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/figge/Developer/synonyms/api" Presentation="&amp;lt;Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/figge/Library/Caches/JetBrains/Rider2022.1/resharper-host/temp/Rider/vAny/CoverageData/_Synonym.1615636907/Snapshot/snapshot.utdcvr</s:String></wpf:ResourceDictionary>
+	</wpf:ResourceDictionary>
