@@ -1,12 +1,8 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Synonym.Core.Models;
-using Synonym.Infra.Context;
-using Synonym.Infra.Repositories;
+using Synonym.Infrastructure.Repositories;
 using Synonym.Test.Utils;
 
 namespace Synonym.Test.Infra.Repositories;
@@ -21,8 +17,8 @@ public class SynonymRepositoryTest
         var repository = new SynonymRepository(ctx);
         var word1 = new Word {Value = "A"};
         var word2 = new Word {Value = "B"};
-        await ctx.AddAsync(word1);
-        await ctx.AddAsync(word2);
+        ctx.AddWord(word1);
+        ctx.AddWord(word2);
 
         var synonym = new Synonym.Core.Models.Synonym
         {
@@ -32,7 +28,7 @@ public class SynonymRepositoryTest
         await repository.AddAsync(synonym);
         
         Assert.That(synonym.Id != -1);
-        Assert.That(ctx.Set<Synonym.Core.Models.Synonym>().FirstOrDefault() != null);
+        Assert.That(ctx.GetSynonyms().FirstOrDefault() != null);
     }
     
     [Test]
@@ -43,8 +39,8 @@ public class SynonymRepositoryTest
         
         var word1 = new Word {Value = "A"};
         var word2 = new Word {Value = "B"};
-        await ctx.AddAsync(word1);
-        await ctx.AddAsync(word2);
+        ctx.AddWord(word1);
+        ctx.AddWord(word2);
 
         var synonym = new Synonym.Core.Models.Synonym
         {

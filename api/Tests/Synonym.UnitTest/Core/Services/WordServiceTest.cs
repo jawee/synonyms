@@ -1,11 +1,10 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using Synonym.Core.Models;
 using Synonym.Core.Services;
-using Synonym.Infra.Repositories;
+using Synonym.Infrastructure.Repositories;
 using Synonym.Test.Utils;
 
 namespace Synonym.Test.Core.Services;
@@ -28,8 +27,7 @@ public class WordServiceTest
     public async Task TestGetWordByString_A_ReturnsA()
     {
         var ctx = TestSynonymDbContext.GetTestDbContext();
-        await ctx.AddAsync(new Word {Value = "a"});
-        await ctx.SaveChangesAsync();
+        ctx.AddWord(new Word {Value = "a"});
         var repository = new WordRepository(ctx);
         var logger = new Mock<ILogger<WordService>>().Object;
         var service = new WordService(new WordRepository(ctx), logger);
@@ -52,7 +50,7 @@ public class WordServiceTest
 
         Assert.That(res != null, $"Res is null, expected not null");
         Assert.That(res is {Value: "a"}, $"Expected res to be 'a', got {res?.Value}");
-        Assert.That(ctx.Words.Count() == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.Words.Count()}");
+        Assert.That(ctx.GetWords().Count == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.GetWords().Count}");
     }
     [Test]
     public async Task TestCreateWord_A_A_OnlyOneCreated()
@@ -67,6 +65,6 @@ public class WordServiceTest
 
         Assert.That(res != null, $"Res is null, expected not null");
         Assert.That(res is {Value: "a"}, $"Expected res to be 'a', got {res?.Value}");
-        Assert.That(ctx.Words.Count() == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.Words.Count()}");
+        Assert.That(ctx.GetWords().Count == 1, $"Expected ctx.Words to only contain 1 object, contains {ctx.GetWords().Count}");
     }
 }

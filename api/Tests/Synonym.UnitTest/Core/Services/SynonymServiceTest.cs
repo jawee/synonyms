@@ -1,11 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using Synonym.Core.Services;
-using Synonym.Infra.Repositories;
+using Synonym.Infrastructure.Repositories;
 using Synonym.Test.Utils;
 
 namespace Synonym.Test.Core.Services;

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Synonym.Core.Models;
 using Synonym.Infra.Context;
+using Synonym.Infrastructure.Context;
+using InMemoryDbContext = Synonym.Infrastructure.Context.InMemoryDbContext;
 
 namespace Synonym.IntegrationTest.Api.Utils;
 
@@ -22,22 +24,16 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
         using (var scope = serviceProvider.CreateScope())
         {
             var scopedServices = scope.ServiceProvider;
-            var db = scopedServices.GetRequiredService<SynonymDbContext>();
-            
-            db.Database.EnsureDeleted();
-            db.Database.Migrate();
-            
-            db.Words.RemoveRange(db.Words);
-            db.Synonyms.RemoveRange(db.Synonyms);
+            var db = scopedServices.GetRequiredService<InMemoryDbContext>();
             
             var a = new Word {Value = "a"};
             var b = new Word {Value = "b"};
             var c = new Word {Value = "c"};
             var d = new Word {Value = "d"};
-            db.Add(a);
-            db.Add(b);
-            db.Add(c);
-            db.Add(d);
+            db.AddWord(a);
+            db.AddWord(b);
+            db.AddWord(c);
+            db.AddWord(d);
             var syn1 = new Synonym.Core.Models.Synonym
             {
                 Word1 = a,
@@ -48,9 +44,8 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
                 Word1 = b,
                 Word2 = a
             };
-            db.Add(syn1);
-            db.Add(syn2);
-            db.SaveChanges();
+            db.AddSynonym(syn1);
+            db.AddSynonym(syn2);
         }
 
         return host;
@@ -63,17 +58,14 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
             {
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
-                         typeof(SynonymDbContext));
+                         typeof(InMemoryDbContext));
 
                 if (descriptor != null)
                 {
                     services.Remove(descriptor);
                 }
 
-                services.AddDbContext<SynonymDbContext>(options =>
-                {
-                    options.UseSqlite("DataSource=file::memory:");
-                });
+                services.AddSingleton<InMemoryDbContext>();
             });
         
     }

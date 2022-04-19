@@ -1,23 +1,11 @@
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Synonym.Infra.Context;
+using Synonym.Infrastructure.Context;
 
 namespace Synonym.Test.Utils;
 
-public class TestSynonymDbContext
+public static class TestSynonymDbContext
 {
-    public static SynonymDbContext GetTestDbContext()
+    public static InMemoryDbContext GetTestDbContext()
     {
-        var connection = new SqliteConnection("DataSource=:memory:");
-        connection.Open();
-
-        var options = new DbContextOptionsBuilder<SynonymDbContext>().UseSqlite(connection).Options;
-
-        var context = new SynonymDbContext(options);
-            
-        context.Database.EnsureDeleted();
-        context.Database.EnsureCreated();
-
-        return context;
+        return new InMemoryDbContext();
     }
 }
