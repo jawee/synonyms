@@ -1,0 +1,12 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMediaTypeHeaderValue_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2022_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fb058fcc87f88b9fdf1a763b7779e61cce3df1f9cca3f8eb5538ea00f56d5a_003FMediaTypeHeaderValue_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3d8be46c_002Dafbf_002D48e3_002Db2b8_002Def8f1f208fc8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;Test&amp;gt;\&amp;lt;Synonym.Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;Project Location="/Users/figge/Developer/synonyms/Synonym/Synonym.IntegrationTest" Presentation="&amp;lt;Test&amp;gt;\&amp;lt;Synonym.IntegrationTest&amp;gt;" /&gt;
+    &lt;Project Location="/Users/figge/Developer/synonyms/Synonym/Synonym.UnitTest" Presentation="&amp;lt;Test&amp;gt;\&amp;lt;Synonym.UnitTest&amp;gt;" /&gt;
+  &lt;/Or&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7c3d829_002D8002_002D4319_002Da503_002D5b44ee6386a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AddSynonym_AddAB_ReturnsB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/figge/Developer/synonyms/api" Presentation="&amp;lt;Test&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/figge/Library/Caches/JetBrains/Rider2022.1/resharper-host/temp/Rider/vAny/CoverageData/_Synonym.1615636907/Snapshot/snapshot.utdcvr</s:String></wpf:ResourceDictionary>

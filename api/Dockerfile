@@ -9,11 +9,9 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Synonym.Api/Synonym.Api.csproj", "Synonym.Api/"]
 COPY ["Synonym.Core/Synonym.Core.csproj", "Synonym.Core/"]
-COPY ["Synonym.Infra/Synonym.Infra.csproj", "Synonym.Infra/"]
 COPY ["Synonym.Infrastructure/Synonym.Infrastructure.csproj", "Synonym.Infrastructure/"]
 RUN dotnet restore "Synonym.Api/Synonym.Api.csproj"
 RUN dotnet restore "Synonym.Core/Synonym.Core.csproj"
-RUN dotnet restore "Synonym.Infra/Synonym.Infra.csproj"
 RUN dotnet restore "Synonym.Infrastructure/Synonym.Infrastructure.csproj"
 COPY . .
 WORKDIR "/src/Synonym.Api"
