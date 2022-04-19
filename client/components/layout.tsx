@@ -1,4 +1,4 @@
-import Header from './heading'
+import Header from './header'
 type LayoutProps = {
   children: React.ReactNode,
 };

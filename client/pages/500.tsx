@@ -7,7 +7,7 @@ const FiveOhOh: NextPage = () => {
     <h1 className="text-2xl">500 - An error occurred.</h1>
     <Link href="/">
       <a>
-        Go back home
+        Go back to search
       </a>
     </Link>
   </>

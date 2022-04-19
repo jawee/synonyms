@@ -6,7 +6,7 @@ const Error: NextPage = () => {
     <h1 className="text-2xl">An error occurred.</h1>
     <Link href="/">
       <a>
-        Go back home
+        Go back to search
       </a>
     </Link>
   </>

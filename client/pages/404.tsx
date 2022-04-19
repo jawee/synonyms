@@ -6,7 +6,7 @@ const FourOhFour: NextPage = () => {
     <h1 className="text-2xl">404 - Page Not Found</h1>
     <Link href="/">
       <a>
-        Go back home
+        Go back to search
       </a>
     </Link>
   </>
