@@ -15,18 +15,13 @@ public class WordRepository : IWordRepository
 
     public async Task<Word> AddAsync(Word entity, CancellationToken cancellationToken = default)
     {
-        _context.AddWord(entity);
+        await Task.Run(() => _context.AddWord(entity), cancellationToken);
         return entity;
     }
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public async Task<Word?> GetWordByString(string s, CancellationToken cancellationToken = default)
     {
-        return 0;
-    }
-
-    public async Task<Word?> GetWordByString(string s)
-    {
-        var res = _context.GetWords().FirstOrDefault(w => w.Value.Equals(s));
+        var res = await Task.Run(() => _context.GetWords().FirstOrDefault(w => w.Value.Equals(s)), cancellationToken);
         return res;
     }
 }

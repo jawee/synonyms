@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synonym.Api", "Synonym.Api\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synonym.Core", "Synonym.Core\Synonym.Core.csproj", "{8EF14918-7FB8-4387-ACB2-7104A159B767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synonym.Infra", "Synonym.Infra\Synonym.Infra.csproj", "{1833D05A-D083-4FB7-88ED-AE300E5AED2A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9F39B663-3AC8-4801-856B-021FB3D433C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synonym.IntegrationTest", "Tests\Synonym.IntegrationTest\Synonym.IntegrationTest.csproj", "{3E1CAF34-2B30-48A4-A156-C1E81F6E82B8}"
@@ -28,10 +26,6 @@ Global
 		{8EF14918-7FB8-4387-ACB2-7104A159B767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF14918-7FB8-4387-ACB2-7104A159B767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EF14918-7FB8-4387-ACB2-7104A159B767}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1833D05A-D083-4FB7-88ED-AE300E5AED2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1833D05A-D083-4FB7-88ED-AE300E5AED2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1833D05A-D083-4FB7-88ED-AE300E5AED2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1833D05A-D083-4FB7-88ED-AE300E5AED2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E1CAF34-2B30-48A4-A156-C1E81F6E82B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E1CAF34-2B30-48A4-A156-C1E81F6E82B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E1CAF34-2B30-48A4-A156-C1E81F6E82B8}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,5 +4,5 @@ namespace Synonym.Core.Repositories;
 
 public interface IWordRepository : IRepository<Word>
 {
-   Task<Word?> GetWordByString(string s);
+   Task<Word?> GetWordByString(string s, CancellationToken cancellationToken = default);
 }

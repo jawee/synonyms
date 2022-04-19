@@ -4,8 +4,8 @@ namespace Synonym.Infrastructure.Context;
 
 public class InMemoryDbContext
 {
-   private List<Word> _words;
-   private List<Core.Models.Synonym> _synonyms;
+   private readonly List<Word> _words;
+   private readonly List<Core.Models.Synonym> _synonyms;
    private long _wordId = 1;
    private long _synonymId = 1;
    

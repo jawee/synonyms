@@ -14,18 +14,13 @@ public class SynonymRepository : ISynonymRepository
     }
     public async Task<Core.Models.Synonym> AddAsync(Core.Models.Synonym entity, CancellationToken cancellationToken = default)
     {
-        _context.AddSynonym(entity);
+        await Task.Run(() => _context.AddSynonym(entity), cancellationToken);
         return entity;
     }
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public async Task<List<Word>> GetSynonymsForWord(Word word, CancellationToken cancellationToken = default)
     {
-        return 0;
-    }
-
-    public async Task<List<Word>> GetSynonymsForWord(Word word)
-    {
-        var res = _context.GetSynonyms().Where(s => s.Word1Id == word.Id).Select(s => s.Word2).ToList();
+        var res = await Task.Run(() => _context.GetSynonyms().Where(s => s.Word1Id == word.Id).Select(s => s.Word2).ToList(), cancellationToken);
         return res;
     }
 }
