@@ -27,6 +27,17 @@ public class SynonymControllerTest
         Assert.That(synonymResponse.Synonyms.Contains("b"), $"Expected synonyms to contain 'b'.");
     }
     
+    
+    [Test]
+    public async Task GET_NoQuery_MethodNotAllowed()
+    {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var client = application.CreateClient();
+        var response = await client.GetAsync("/Synonym/");
+        
+        Assert.That(response.StatusCode == HttpStatusCode.MethodNotAllowed, $"Expected to get MethodNotAllowed, got {response.StatusCode}");
+    }
+    
     [Test]
     public async Task GET_WordDoesNotExist_EmptyResponse()
     {
@@ -80,11 +91,53 @@ public class SynonymControllerTest
     }
 
     [Test]
-    public async Task POST_BadRequest()
+    public async Task POST_NotSingleWord_BadRequest()
     {
         await using var application = new TestWebApplicationFactory<WebMarker>();
         var client = application.CreateClient();
         var request = new CreateSynonymRequest("a b", "c");
+        var content = new StringContent(JsonConvert.SerializeObject(request));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        var resp = await client.PostAsync("/Synonym", content);
+        
+        Assert.That(resp.StatusCode == HttpStatusCode.BadRequest, $"Expected to get BadRequest, got {resp.StatusCode}");
+    }
+    
+    [Test]
+    public async Task POST_NullInput_BadRequest()
+    {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var client = application.CreateClient();
+        var request = new CreateSynonymRequest(null, null);
+        var content = new StringContent(JsonConvert.SerializeObject(request));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        var resp = await client.PostAsync("/Synonym", content);
+        
+        Assert.That(resp.StatusCode == HttpStatusCode.BadRequest, $"Expected to get BadRequest, got {resp.StatusCode}");
+    }
+    
+    [Test]
+    public async Task POST_EmptyInput_BadRequest()
+    {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var client = application.CreateClient();
+        var request = new CreateSynonymRequest("", "");
+        var content = new StringContent(JsonConvert.SerializeObject(request));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        var resp = await client.PostAsync("/Synonym", content);
+        
+        Assert.That(resp.StatusCode == HttpStatusCode.BadRequest, $"Expected to get BadRequest, got {resp.StatusCode}");
+    }
+    
+    [Test]
+    public async Task POST_WhitespaceInput_BadRequest()
+    {
+        await using var application = new TestWebApplicationFactory<WebMarker>();
+        var client = application.CreateClient();
+        var request = new CreateSynonymRequest(" ", " ");
         var content = new StringContent(JsonConvert.SerializeObject(request));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 

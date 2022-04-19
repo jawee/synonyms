@@ -1,7 +1,6 @@
 using Serilog;
 using Synonym.Core.Repositories;
 using Synonym.Core.Services;
-using Synonym.Infrastructure;
 using Synonym.Infrastructure.Context;
 using Synonym.Infrastructure.Repositories;
 
@@ -26,26 +25,13 @@ builder.Services.AddScoped<ISynonymRepository, SynonymRepository>();
 
 builder.Services.AddSingleton<InMemoryDbContext>();
 
-// builder.Services.AddDbContext<SynonymDbContext>(options =>
-//     options.UseSqlite("DataSource=file::memory:?cache=shared"));
-
 var app = builder.Build();
-
-// using (var scope = app.Services.CreateScope())
-// {
-//     var db = scope.ServiceProvider.GetRequiredService<SynonymDbContext>();
-//     db.Database.Migrate();
-// }
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// app.UseHttpsRedirection();
-
-// app.UseAuthorization();
 
 app.MapControllers();
 

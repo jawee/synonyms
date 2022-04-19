@@ -5,7 +5,7 @@ using Synonym.Core.Models;
 using Synonym.Infrastructure.Repositories;
 using Synonym.Test.Utils;
 
-namespace Synonym.Test.Infra.Repositories;
+namespace Synonym.Test.Infrastructure.Repositories;
 
 [TestFixture]
 public class SynonymRepositoryTest

@@ -14,12 +14,12 @@ public record CreateSynonymRequest(string FirstWord, string SecondWord)
 
     public bool Validate()
     {
-        return !ValidateWord(this.FirstWord) || !ValidateWord(this.SecondWord);
+        return !ValidateWord(FirstWord) || !ValidateWord(SecondWord);
     }
     
     private bool ValidateWord(string word)
     {
-        return Regex.IsMatch(word, RegexPattern);
+        return !string.IsNullOrEmpty(word) && Regex.IsMatch(word, RegexPattern);
     }
 
 };
