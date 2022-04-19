@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Synonym.Core\Synonym.Core.csproj" />
+      <ProjectReference Include="..\Synonym.Infrastructure\Synonym.Infrastructure.csproj" />
       <ProjectReference Include="..\Synonym.Infra\Synonym.Infra.csproj" />
     </ItemGroup>
 

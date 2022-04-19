@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Synonym.Core.Repositories;
 using Synonym.Core.Services;
-using Synonym.Infra.Context;
-using Synonym.Infra.Repositories;
+using Synonym.Infrastructure;
+using Synonym.Infrastructure.Context;
+using Synonym.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,16 +24,18 @@ builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddScoped<IWordRepository, WordRepository>();
 builder.Services.AddScoped<ISynonymRepository, SynonymRepository>();
 
-builder.Services.AddDbContext<SynonymDbContext>(options =>
-    options.UseSqlite("DataSource=file::memory:?cache=shared"));
+builder.Services.AddSingleton<InMemoryDbContext>();
+
+// builder.Services.AddDbContext<SynonymDbContext>(options =>
+//     options.UseSqlite("DataSource=file::memory:?cache=shared"));
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<SynonymDbContext>();
-    db.Database.Migrate();
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var db = scope.ServiceProvider.GetRequiredService<SynonymDbContext>();
+//     db.Database.Migrate();
+// }
 
 if (app.Environment.IsDevelopment())
 {
